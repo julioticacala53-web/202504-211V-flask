@@ -11,4 +11,5 @@ cd 202504-211V-flask/
 
 ```bash
 uv sync
+uv run flask --app main run
 ```
