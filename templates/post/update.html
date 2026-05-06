@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h3>Nuevo Post</h3>
+    <form action="/post/create" method="post">
+        <div class="mb-3">
+            <label class="form-label" for="title_title">Título</label>
+            <input type="text" id="title_title" class="form-control" name="title_title" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label" for="content_content">Contenido</label>
+            <textarea id="content_content" class="form-control" name="content_content" rows="4" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-success">Guardar</button>
+        <a href="/home" class="btn btn-link">Volver</a>
+    </form>
+</div>
+{% endblock %}
