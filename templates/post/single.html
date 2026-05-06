@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-body">
+            <h2 class="card-title">{{ post_single["id"] }}: {{ post_single["title"] }}</h2>
+            <small class="text-muted">Creado el: {{ post_single["created_at"] }}</small>
+            <hr>
+            <p class="card-text">{{ post_single["content"] }}</p>
+            <a href="/post/list" class="btn btn-secondary">← Volver</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
