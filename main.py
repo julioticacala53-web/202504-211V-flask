@@ -53,3 +53,25 @@ def create_post():
         )
         connection.commit()
         return redirect(url_for("get_all_posts"))
+
+
+@app.route("/post/update/<int:post_id>", methods=("GET", "POST"))
+def update_post(post_id):
+    connection = get_db_connection()
+    cur = connection.cursor()
+    post = cur.execute("SELECT * FROM posts WHERE id = ?", (post_id,)).fetchone()
+    if post is None:
+        abort(404)
+    if request.method == "GET":
+        return render_template("post/update.html", single_post=post)
+    if request.method == "POST":
+        title = request.form["title_title"]
+        content = request.form["content_content"]
+        connection = get_db_connection()
+        cur = connection.cursor()
+        cur.execute(
+            "UPDATE posts SET title = ?, content = ? WHERE id = ?",
+            (title, content, post_id),
+        )
+        connection.commit()
+        return redirect(url_for("get_all_posts"))
