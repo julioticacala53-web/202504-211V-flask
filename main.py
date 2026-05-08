@@ -75,3 +75,28 @@ def update_post(post_id):
         )
         connection.commit()
         return redirect(url_for("get_all_posts"))
+
+
+@app.route("/post/delete/<int:post_id>", methods=["POST"])
+def delete_one_post(post_id):
+    connection = get_db_connection()
+    cur = connection.cursor()
+    post = cur.execute("SELECT * FROM posts WHERE id = ?", (post_id,)).fetchone()
+    if post is None:
+        abort(404)
+    connection.execute("DELETE FROM posts WHERE id = ?", (post_id,))
+    connection.commit()
+    return redirect(url_for("get_all_posts"))
+
+
+@app.route("/post/delete/<int:post_id>/htmx", methods=["DELETE"])
+def delete_one_post_htmx(post_id):
+    connection = get_db_connection()
+    cur = connection.cursor()
+    post = cur.execute("SELECT * FROM posts WHERE id = ?", (post_id,)).fetchone()
+    if post is None:
+        abort(404)
+    connection.execute("DELETE FROM posts WHERE id = ?", (post_id,))
+    connection.commit()
+    if request.method == "DELETE":
+        return ""

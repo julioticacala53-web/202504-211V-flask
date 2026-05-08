@@ -10,9 +10,10 @@
           <th>Título</th>
           <th>Contenido</th>
           <th>Fecha de creación</th>
+          <th>Acciones</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody hx-confirm="Are you sure?" hx-target="closest tr" hx-swap="outerHTML swap:2s">
         {% for post in post_list %}
         <tr>
           <td>
@@ -23,6 +24,28 @@
           <td>{{ post["title"] }}</td>
           <td>{{ post["content"] }}</td>
           <td>{{ post["created_at"] }}</td>
+          <td>
+            <a
+              href="{{ url_for('update_post', post_id=post['id']) }}"
+              class="btn btn-warning btn-sm"
+            >
+              Update
+            </a>
+            <button style="display: inline-block; margin: 0" class="btn btn-danger btn-sm" 
+              hx-delete="{{ url_for('delete_one_post_htmx', post_id=post['id']) }}">
+              Delete HTMX
+            </button>
+            <form
+              action="{{ url_for('delete_one_post', post_id=post['id']) }}"
+              method="post"
+              style="display: inline-block; margin: 0"
+              onsubmit="return confirmDelete(event, this);"
+            >
+              <button class="btn btn-danger btn-sm" type="submit">
+                Delete
+              </button>
+            </form>
+          </td>
         </tr>
         {% endfor %}
       </tbody>
