@@ -1,0 +1,25 @@
+<div class="container mt-4">
+  <div class="table-responsive">
+    <table class="table table-striped table-hover">
+      <thead class="table-dark">
+        <tr>
+          <th>ID</th>
+          <th>Título</th>
+          <th>Contenido</th>
+          <th>Fecha de creación</th>
+        </tr>
+      </thead>
+      <tbody hx-confirm="Are you sure?" hx-target="closest tr" hx-swap="outerHTML swap:2s">
+        {% for post in post_list %}
+        <tr>
+          <td>{{ post["id"] }}</td>
+          <td>{{ post["title"] }}</td>
+          <td>{{ post["content"] }}</td>
+          <td>{{ post["created_at"] }}</td>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>

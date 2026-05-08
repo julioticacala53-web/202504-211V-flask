@@ -52,4 +52,12 @@
     </table>
   </div>
 </div>
+
+
+<button hx-get="{{ url_for('post.get_all_posts_json') }}" 
+        hx-target="#datos-json" 
+        hx-swap="innerHTML">
+    Cargar Posts
+</button>
+<div id="datos-json"></div>
 {% endblock %}

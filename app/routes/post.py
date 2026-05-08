@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, url_for, abort
+from flask import Blueprint, render_template, request, redirect, url_for, abort, jsonify
 from app.database import get_db_connection
 
 post_bp = Blueprint('post', __name__, url_prefix='/post')
@@ -9,6 +9,12 @@ def get_all_posts():
     db = get_db_connection()
     posts = db.execute("SELECT * FROM posts;")
     return render_template("post/list.html", post_list=posts)
+
+@post_bp.route("/api/list", methods=["GET"])
+def get_all_posts_json():
+    db = get_db_connection()
+    posts = db.execute("SELECT * FROM posts;")
+    return render_template("partials/datos-json.html", post_list=posts)
 
 
 @post_bp.route("/<int:post_id>")
